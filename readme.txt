@@ -14,9 +14,6 @@ This plugin allows you to make pull-quotes ( http://en.wikipedia.org/wiki/Pull-q
 
 This plugin was previously known as "JavaScript Pull-Quotes"
 
-building on the work of:
-	Roger Johansson -- http://www.456bereastreet.com/
-
 This plugin is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -50,9 +47,9 @@ NOTE: If you would like to have a "Pull-quotes" button in the post editor, pleas
 	`<span class="pullquote pqRight">`This will appear on the right</span> no matter what the Settings screen says.
 
 
-BUGS AND WORKAROUNDS:
+== Bugs and Workarounds ==
 
-NOTE REGARDING HTML COMMENTS:
+Note Regarding HTML Comments:
 
 	A little known "gotcha" with HTML quotes is that technically speaking you are not allowed to put a double-dash ("--") inside a comment, except as part of the beginning and end markers.  (A double-dash technically ends an HTML comment.)  In some browsers I have seen this expose comment data as page text.  This is part of the official HTML spec and not a "bug" per se in this plugin.
 
@@ -60,7 +57,7 @@ BUG: WordPress does weird things if you try to put tags inside a comment.  See h
 
 BUG: Accented characters in alternate comments get messed up.
 
-WORKAROUND REGARDING BUGGY BROWSERS:
+Workaround Regarding Buggy Browsers:
 
 	There is a bug in the JavaScript rendering of certain less common browsers (including older versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
 
@@ -83,11 +80,11 @@ Finally, I (Stephen Rider) picked it up and started adding features, including t
 
 Enjoy!
 
-	--Stephen Rider
+--Stephen Rider
 
 == Changelog ==
 
-= 2.4 (5 May 2011)
+= 2.4 (5 May 2011) =
 * Updated filenames to reflect new plugin name.
 * Updated .po localization files to reflect current code (calling all translators!)
 * A few more tweaks in preparation for adding plugin to the Official WP Extend repository.
