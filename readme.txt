@@ -1,7 +1,7 @@
 === Graceful Pull-Quotes ===
 Contributors: strider72
 Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/#download
-Tags: theme, pull-quotes
+Tags: theme, pull-quote, pull quote, quotation, quote, blurb, excerpt
 Requires at least: 2.6
 Tested up to: 3.1.2
 Stable tag: 2.4
@@ -10,13 +10,9 @@ Allows you to make pull-quotes without duplicating content. If the plugin is dis
 
 == Description ==
 
-This plugin allows you to make pull-quotes ( http://en.wikipedia.org/wiki/Pull-quote ) in your posts without duplicating any content. Text you select will be duplicated as a pull-quote.  This is done entirely via JavaScript and is designed to seamlessly vanish if the plugin is disabled later.  Using JavaScript instead of PHP also ensures that duplicate content doesn't show up in your feeds.
+This plugin allows you to make pull-quotes ( http://en.wikipedia.org/wiki/Pull-quote ) in your posts without duplicating any content. Text you select will be duplicated as a pull-quote.  This is done entirely via JavaScript and is designed to seamlessly vanish if the plugin is disabled later.  Using JavaScript instead of PHP also ensures that duplicate content doesn't show up in your feeds.  It is named for the fact that it degrades gracefully in browsers that can't handle the JavaScript, as well as not leaving behind visible cruft (such as shortcodes) if the plugin is later deactivated. 
 
 This plugin was previously known as "JavaScript Pull-Quotes"
-
-This plugin is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 == Installation ==
 
@@ -38,28 +34,28 @@ NOTE: If you would like to have a "Pull-quotes" button in the post editor, pleas
 
 2. If you want a pull-quote that has text *different* than the text in the `<span>`, put it inside `<!-- an HTML comment -->` like so:
 
-	`<span class="pullquote"><!-- This sentence should be a pull-quote -->`This sentence, without this middle clause, should be a pull-quote</span>.
+	`<span class="pullquote"><!-- This sentence should be a pull-quote -->`This sentence, without this middle clause, should be a pull-quote`</span>.
 
 	The content inside the HTML comment will *only* show up as the pull-quote -- it will not appear at all in the main flow of text.
 
-3. To specify a side for a particular pull-quote, give the <span> a secondary class of either pqLeft or pqRight, like so:
+3. To specify a side for a particular pull-quote, give the `<span> a secondary class of either pqLeft or pqRight, like so:
 
-	`<span class="pullquote pqRight">`This will appear on the right</span> no matter what the Settings screen says.
+	`<span class="pullquote pqRight">`This will appear on the right`</span> no matter what the Settings screen says.
 
 
 == Bugs and Workarounds ==
 
-Note Regarding HTML Comments:
+= Note Regarding HTML Comments =
 
-	A little known "gotcha" with HTML quotes is that technically speaking you are not allowed to put a double-dash ("--") inside a comment, except as part of the beginning and end markers.  (A double-dash technically ends an HTML comment.)  In some browsers I have seen this expose comment data as page text.  This is part of the official HTML spec and not a "bug" per se in this plugin.
+A little known "gotcha" with HTML quotes is that technically speaking you are not allowed to put a double-dash ("--") inside a comment, except as part of the beginning and end markers.  (A double-dash technically ends an HTML comment.)  In some browsers I have seen this expose comment data as page text.  This is part of the official HTML spec and not a "bug" per se in this plugin.
 
-BUG: WordPress does weird things if you try to put tags inside a comment.  See http://core.trac.wordpress.org/ticket/8912 for more info.
+BUG: WordPress does weird things if you try to put HTML tags inside an HTML comment.  See http://core.trac.wordpress.org/ticket/8912 for more info.
 
-BUG: Accented characters in alternate comments get messed up.
+BUG: HTML entities (e.g. accented characters) inside HTML comments get messed up.  I believe this is a WordPress bug related to the above bug.
 
-Workaround Regarding Buggy Browsers:
+= Workaround Regarding Buggy Browsers =
 
-	There is a bug in the JavaScript rendering of certain less common browsers (including older versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
+There is a bug in the JavaScript rendering of certain less common browsers (including older versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
 
 	A) Do the alternate text as described.  Affected browsers will show the *actual* text in the span as though the alternate were not there.
 
