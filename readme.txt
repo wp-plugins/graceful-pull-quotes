@@ -1,7 +1,7 @@
 === Graceful Pull-Quotes ===
 Contributors: strider72
 Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/#download
-Tags: theme, pull-quote, pull quote, quotation, quote, blurb, excerpt
+Tags: theme, pull-quotes, pull quotes, blurb, quotation, quote
 Requires at least: 2.6
 Tested up to: 3.1.2
 Stable tag: 2.4
@@ -20,11 +20,13 @@ Upload the ENTIRE folder to your plugins folder (`/wp-content/plugins/`) while k
 
 Then activate it on your plugin management page.
 
-Finally, go to the Pull-Quotes settings panel, (under the "Appearance" tab), select your options.  This step is optional, as the program works pretty well right out of the box, but I recommend previewing the different quote styles at least.
+Finally, go to the Pull-Quotes settings panel, (under the "Appearance" tab), and select your options.  This step is optional, as the program works pretty well right out of the box, but I recommend at least previewing the different quote styles.
 
 == Usage ==
 
-NOTE: If you would like to have a "Pull-quotes" button in the post editor, please read `How_to_add_quicktags.htm` , which you can find in this plugin's "extras" folder.
+NOTE: If you would like to have a "Pull-quotes" button in the post editor, I highly recommend Frank Bueltge's <a href="http://wordpress.org/extend/plugins/addquicktag/">Add&nbsp;Quicktags&nbsp;plugin</a>.  I've included in my plugin (in the "extras" folder) a settings file that you can import into "Add Quicktags" (though it isn't hard to do it manually).
+
+To make a pull-quote:
 
 1. Just wrap the text you want to put in a pull-quote like this:
 
@@ -32,13 +34,13 @@ NOTE: If you would like to have a "Pull-quotes" button in the post editor, pleas
 
 	The <span> won't affect how that text shows up, but it tells the JavaScript to _duplicate_ it as a pull-quote.
 
-2. If you want a pull-quote that has text *different* than the text in the `<span>`, put it inside `<!-- an HTML comment -->` like so:
+2. (optional) If you want a pull-quote that has text *different* than the text in the `<span>`, put it inside `<!-- an HTML comment -->` like so:
 
 	`<span class="pullquote"><!-- This sentence should be a pull-quote -->`This sentence, without this middle clause, should be a pull-quote`</span>.
 
 	The content inside the HTML comment will *only* show up as the pull-quote -- it will not appear at all in the main flow of text.
 
-3. To specify a side for a particular pull-quote, give the `<span> a secondary class of either pqLeft or pqRight, like so:
+3. (optional) To specify a side for a particular pull-quote, give the `<span> a secondary class of either pqLeft or pqRight (that's case-sensitive!), like so:
 
 	`<span class="pullquote pqRight">`This will appear on the right`</span> no matter what the Settings screen says.
 
