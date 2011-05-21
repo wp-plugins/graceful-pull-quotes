@@ -1,0 +1,144 @@
+# Copyright (C) 2007 Graceful Pull-Quotes' copyright holder
+# This file is distributed under the same license as Graceful Pull-Quotes.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Graceful Pull-Quotes 2.1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-25 11:28-0600\n"
+"PO-Revision-Date: 2008-09-25 11:30-0600\n"
+"Last-Translator: Stephen Rider <localizations@striderweb.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: pq__;pq_e\n"
+"X-Poedit-Basepath: /Users/Steve/Sites/striderweb.com/public_html/wp-content/plugins\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: jspullquotes\n"
+
+#: jspullquotes/jspullquotes.php:229
+#: jspullquotes/jspullquotes.php:332
+msgid "Pull-Quote Settings"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:229
+msgid "Pull-Quotes"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:312
+#: jspullquotes/jspullquotes.php:347
+msgid "Default"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:338
+msgid "Basic Options"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:342
+msgid "Appearance"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:344
+msgid "Only one style is available"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:351
+msgid "show a preview of the selected style in a pop-up window"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:351
+msgid "preview"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:352
+msgid "Note: a \"jspullquotes.css\" file in the active Theme directory will override this setting"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:356
+msgid "left"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:357
+msgid "right"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:361
+msgid "Position"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:363
+#, php-format
+msgid "Display quotes on %s side"
+msgstr ""
+
+# NOTE: "alternate" (verb) here means "switch sides back and forth"
+#: jspullquotes/jspullquotes.php:364
+msgid "Successive quotes on one page alternate sides"
+msgstr ""
+
+# NOTE: "alternate" (adj.) here means "alternative" or "different"
+#: jspullquotes/jspullquotes.php:365
+msgid "Use alternate text if available"
+msgstr ""
+
+# NOTE: Only change this one if you have translated the "alt-text-info" file.  Otherwise, leave it as it is.
+#: jspullquotes/jspullquotes.php:365
+msgid "en_US"
+msgstr "en_US"
+
+#: jspullquotes/jspullquotes.php:365
+msgid "how?"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:370
+msgid "Advanced Options"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:380
+msgid "HTML Container"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:382
+msgid "Type of tag that will contain the pull-quote"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:385
+msgid "HTML Links"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:386
+msgid "Remove external links from pull-quotes"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:386
+msgid "(recommended)"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:387
+msgid "Remove internal links (href=\"#id\") from pull-quotes"
+msgstr ""
+
+# This is the title attribute for the "CSS" label.  Do not use "double quotes"
+#: jspullquotes/jspullquotes.php:390
+msgid "Cascading Style Sheets"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:391
+msgid "Do not link CSS"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:391
+msgid "Check this if you prefer to manually put your pull-quote styles elsewhere"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:393
+msgid "Class selector for default pull-quote"
+msgstr ""
+
+#: jspullquotes/jspullquotes.php:394
+msgid "Class selector for alt-side pull-quote"
+msgstr ""
+
