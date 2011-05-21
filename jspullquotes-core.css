@@ -1,0 +1,9 @@
+/* Edit with care! */
+
+blockquote.pullquote, div.pullquote {
+	float: left;
+}
+
+blockquote.pqAlt, div.pqAlt, blockquote.pqRight, div.pqRight { 
+	float: right;
+}

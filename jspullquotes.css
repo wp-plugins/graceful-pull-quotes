@@ -1,0 +1,30 @@
+/* NOTE: *.pqAlt section applies to right-side pull-quotes only.  Right-side quotes will get the *.pullquote declarations PLUS the .pqAlt declarations */
+
+blockquote.pullquote, div.pullquote {
+	width: 10em;
+	margin: 0.25em 1em 0.25em 0;
+	padding:  0;
+	border: none;
+	color: #333;
+	background: transparent;
+	font: italic 1.3em/1.3 Georgia,serif;
+	text-align: center;
+}
+
+blockquote.pqAlt, div.pqAlt, blockquote.pqRight, div.pqRight {
+	margin: 0.25em 0 0.25em 1em;
+}
+
+blockquote.pullquote p, div.pullquote p {
+	margin:  0;
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	border: 3px double #ccc;
+	border-width: 3px 0;
+}
+
+/* Capitalize first letter of the quote */
+/*
+blockquote.pullquote p:first-letter, div.pullquote p:first-letter {
+	text-transform: uppercase;
+}
+*/
