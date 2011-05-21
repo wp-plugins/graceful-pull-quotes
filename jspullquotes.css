@@ -1,0 +1,27 @@
+/* Customize this file as you please! */
+
+blockquote.pullquote {
+	float: left;
+	width: 10em;
+	margin: 0.25em 0.75em 0.25em 0;
+	padding: 0.5em;
+	border: 3px double #ccc;
+	border-width: 3px 0;
+	color: #333;
+	background: transparent;
+	font: italic 1.3em/1.3 Georgia;
+}
+
+blockquote.alt {
+	float: right;
+	margin: 0.25em 0 0.25em 0.75em;
+}
+
+.pullquote p {
+	margin: 0;
+	text-align: center;
+}
+
+.pullquote p:first-letter {
+	text-transform: uppercase; /* Make the first letter of the quote a capital letter */
+}
