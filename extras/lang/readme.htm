@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>How to use Plugin Localizations</title>
+</head>
+<body><!-- Last Updated 25 July 2007 -->
+<h1>How to use a localization file</h1>
+
+<p>Each language is named with a code indicating the lanugage and country.  For example, a file for English as spoken in the USA would be "jspq-en_US.mo", and Italian (as spoken in Italy) is "jspq-it_IT.mo".</p>
+
+<p>To use a language other than the default English, take the language file you want and move it up one folder to the jspullquotes folder. </p>
+
+<p>Wordpress also needs to be set up properly for your language, of course.  For more information on doing this, please visit <a href="http://codex.wordpress.org/WordPress_Localization">http://codex.wordpress.org/WordPress_Localization</a>.</p>
+
+<h1>How to submit a translation</h1>
+
+<p>If you speak another language and would like to submit a translation of this plugin, please take a look at the file "jspq.pot".  That is  template containing all the text that needs to be translated on the Options screen.</p>
+
+<p>Every time you see something like this...</p>
+
+<pre>
+#: jspquote.class.php:123
+msgid "Basic Options"
+msgstr ""
+</pre>
+
+<p>...just fill in the blanks...</p>
+
+<pre>
+#: jspquote.class.php:123
+msgid "Basic Options"
+msgstr "Opzioni Di Base"
+</pre>
+
+<p>...and email it to me at <a href="mailto:localizations@striderweb.com">localizations@striderweb.com</a>.</p>
+
+<p>Note that at the top of the file, you can give yourself credit where credit is due by replacing the CAPITALIZED TEXT with your own information.  Also, if you know it, please fill in the language code. (If you don't know the code, just tell me what language it is in your email and I'll figure it out.)</p>
+</body>
+</html>
