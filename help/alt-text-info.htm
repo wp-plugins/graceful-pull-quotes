@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Pull-Quote Options -- Alternate Text</title>
+	<meta name="generator" content="BBEdit 8.5">
+	<meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+	<h1>Alternate Text in a Pull-Quote</h1>
+	<p>If you want certain pull-quotes to differ from the actual text in the &lt;span&gt;, turn on the "Use alternate text if available" option, then put the desired quotation in an HTML comment, like so:<br /><code>&lt;span class="pullquote"&gt;&lt;!-- This is a pullquote --&gt;This, with some extra text we don't want, is a pullquote&lt;/span&gt;</code>.</p>
+	<p>If you are using the rich-text editor, you will have to click the "HTML" button to see the source code in order to do this.</p>
+	<p>Please note that you may not put a double dash ("--") in an HTML comment, as that ends the comment and will cause some weirdness on your page.  This is a standard (if little-known) rule of HTML, and is not caused by this plugin.</p>
+	<div style="border: 1px solid black; margin: 0px; padding: 0 1em;">
+		<p><strong>CAUTION:</strong> Due to a bug in Safari (Mac OS X browser), alternate pull-quote text does not display.  [UPDATED:  The new Safari 3 beta version appears to have fixed this.]  Assuming some of your readers might use this browser, you have two choices:</p>
+		<ol>
+			<li>Do the alternate text as described.  Safari will show the <em>actual</em> text in the span as though the alternate were not there.</li>
+			<li>Put the comment <em>alone</em> in a pullquote span, just before the sentence you're (sort of) quoting.  Safari will not show any pullquote at all, but other browsers will work normally. Example:  <code>&lt;span class="pullquote"&gt;&lt;!-- Darn that Safari! -->&lt;/span&gt;Darn that Javascript-mangling Safari!</code></li>
+		</ol>
+		<p>Please note that in either case, things should "Upgrade Gracefully", meaning that when Apple fixes the bug, we shouldn't have to change anything &#151; the alternate quotes will suddenly just work.</p>
+	</div>
+	<p><a href="../../../../wp-admin/themes.php?page=jspullquotes.php">Return to config page</a></p>
+</body>
+</html>
