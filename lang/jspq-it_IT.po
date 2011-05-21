@@ -1,0 +1,102 @@
+# Copyright (C) 2007 JavaScript Pull-Quotes's copyright holder
+# This file is distributed under the same license as JavaScript Pull-Quotes.
+# Stephen Rider <localization@striderweb.com>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: JavaScript Pull-Quotes 1.5.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-06-17 11:55-0500\n"
+"PO-Revision-Date: 2007-07-09 10:50-0600\n"
+"Last-Translator: Steve's wife's friend Toni's cousin Ralph\n"
+"Language-Team: it_IT <localization@striderweb.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: jspquote.class.php:120
+msgid "Edit the currently active stylesheet"
+msgstr "Pubblichi lo stylesheet attualmente attivo"
+
+#: jspquote.class.php:123
+msgid "Basic Options"
+msgstr "Opzioni Di Base"
+
+#: jspquote.class.php:124
+msgid "(recommended)"
+msgstr "(suggerito)"
+
+#: jspquote.class.php:124
+msgid "Remove link information from pull-quotes"
+msgstr "Rimuova le informazioni di collegamento da tiri-le-citazioni"
+
+#: jspquote.class.php:128
+msgid "Pull-quote style"
+msgstr "Stile delle tiri-le-citazioni"
+
+#: jspquote.class.php:144
+msgid "preview"
+msgstr "previsione"
+
+#: jspquote.class.php:144
+msgid "show a preview of the selected style in a pop-up window"
+msgstr "mostri una previsione dello stile selezionato in una finestra pop-up"
+
+#: jspquote.class.php:147
+msgid "Display quotes on"
+msgstr "Citazioni dell'esposizione sopra"
+
+#: jspquote.class.php:148
+msgid "left"
+msgstr "di sinistra"
+
+#: jspquote.class.php:149
+msgid "right"
+msgstr "destra"
+
+#: jspquote.class.php:150
+msgid "side"
+msgstr "lato"
+
+# NOTE: "alternate" (verb) here means "switch sides back and forth"
+#: jspquote.class.php:151
+msgid "Successive quotes on one page alternate sides"
+msgstr "Citazioni successive dai lati alternati dell'una pagina"
+
+# NOTE: "alternate" (adjective) here means "alternative" or "different"
+#: jspquote.class.php:152
+msgid "Use alternate text if available"
+msgstr "Usi il testo alternato se disponibile"
+
+#: jspquote.class.php:152
+msgid "how?"
+msgstr "come?"
+
+#: jspquote.class.php:155
+msgid "Advanced Options"
+msgstr "Opzioni Avanzate"
+
+#: jspquote.class.php:157
+msgid "Contain pull-quote in an HTML"
+msgstr "Contenga tir-citano in un HTML"
+
+#: jspquote.class.php:161
+msgid "Note: changing any of the following may require you to update your CSS file."
+msgstr "Nota: cambiare c'e ne di quanto segue puo richiedervi di aggiornare la vostra lima di CSS."
+
+#: jspquote.class.php:162
+msgid "CSS class selector for default pull-quote:"
+msgstr "Il selettore di codice categoria di CSS per difetto tir-cita:"
+
+#: jspquote.class.php:163
+msgid "CSS class selector for alt-side pull-quote:"
+msgstr "Il selettore di codice categoria di CSS per il alt-lato tir-cita:"
+
+#: jspullquotes.php:25
+msgid "Customize Pull-Quotes"
+msgstr "Opzioni Tiri-Le-Citazioni"
+
+#: jspullquotes.php:25
+msgid "Pull-Quotes"
+msgstr "Tiri-Le-Citazioni"
+
