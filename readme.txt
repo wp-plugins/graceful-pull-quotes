@@ -4,7 +4,7 @@ Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-qu
 Tags: theme, pull-quotes, pull quotes, blurb, quotation, quote
 Requires at least: 2.6
 Tested up to: 3.1.2
-Stable tag: 2.4
+Stable tag: 2.4.1
 
 Allows you to make pull-quotes without duplicating content. If the plugin is disabled the pull-quotes disappear seamlessly.
 
@@ -51,7 +51,7 @@ To make a pull-quote:
 
 A little known "gotcha" with HTML quotes is that technically speaking you are not allowed to put a double-dash ("--") inside a comment, except as part of the beginning and end markers.  (A double-dash technically ends an HTML comment.)  In some browsers I have seen this expose comment data as page text.  This is part of the official HTML spec and not a "bug" per se in this plugin.
 
-BUG: WordPress does weird things if you try to put HTML tags inside an HTML comment.  See http://core.trac.wordpress.org/ticket/8912 for more info.
+BUG: WordPress does weird things if you try to put HTML tags inside an HTML comment.  See http://core.trac.wordpress.org/ticket/8912 for more info.  This may be fixed in WP 3.3.
 
 BUG: HTML entities (e.g. accented characters) inside HTML comments get messed up.  I believe this is a WordPress bug related to the above bug.
 
@@ -81,6 +81,9 @@ Enjoy!
 --Stephen Rider
 
 == Changelog ==
+
+= 2.4.1 (3 September 2011) =
+* Bugfix: A jspullqutes.css file in a theme is now properly detected in both Parent and Child themes
 
 = 2.4 (5 May 2011) =
 * Updated filenames to reflect new plugin name.

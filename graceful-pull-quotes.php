@@ -3,8 +3,8 @@
 Plugin Name: Graceful Pull-Quotes
 Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
-Version: 2.4
-Date: 2011-05-03
+Version: 2.4.1
+Date: 2011-09-03
 Author: Stephen Rider
 Author URI: http://striderweb.com/
 */
@@ -19,7 +19,7 @@ class jspullquotes {
 	TO DO:	find better way to combine style and "core" CSS files into single call
 	TO DO:	(??) Allow for semi-random styling
 	TO DO:	Fix encoding bug for extended ASCII text in alt-text comments
-			-	Maybe related to WP core bug: http://trac.wordpress.org/ticket/3603
+			-	Maybe related to WP core bug: http://core.trac.wordpress.org/ticket/8912 or 3603
 	TO DO:	Option: [B]racket-capitalize quotes starting with lowercase letter
 */
 
@@ -176,6 +176,26 @@ error_log($this->style_url);
 		return $file;
 	}
 
+// Part of Core after WordPress 3.3 is released, but we need it now for get_pqcss()
+// See http://core.trac.wordpress.org/ticket/18302
+	function locate_template_uri( $template_names ) {
+		$located = '';
+		foreach ( (array) $template_names as $template_name ) {
+			if ( !$template_name )
+				continue;
+
+			if ( file_exists(get_stylesheet_directory() . '/' . $template_name)) {
+				$located = get_stylesheet_directory_uri() . '/' . $template_name;
+				break;
+			} else if ( file_exists(get_template_directory() . '/' . $template_name) ) {
+				$located = get_template_directory_uri() . '/' . $template_name;
+				break;
+			}
+		}
+
+		return $located;
+	}
+
 // ========================
 // BLOG PAGE CODE
 // ========================
@@ -186,14 +206,14 @@ error_log($this->style_url);
 			$options = $this->get_options();
 			$theStyle = $options['style'];
 		}
-		if ( file_exists( TEMPLATEPATH . '/jspullquotes.css' ) )
+		$theStylePath = $this->plugin_url . '/resources/jspullquotes-default.css';
+		if ( file_exists( locate_template( 'jspullquotes.css' ) ) ) {
 			// A stylesheet embedded in a WordPress theme overrides Options Page selection
-			$theStyle = get_bloginfo( 'stylesheet_directory' ) . '/jspullquotes.css';
-		elseif ( file_exists( $this->style_dir . '/' . $theStyle ) )
-			$theStyle = $this->style_url . '/' . $theStyle;
-		else // chosen style file doesn't exist
-			$theStyle = $this->plugin_url . '/resources/jspullquotes-default.css';
-		return $theStyle;
+			$theStylePath = $this->locate_template_uri( 'jspullquotes.css' );
+		} elseif ( file_exists( $this->style_dir . '/' . $theStyle ) ) {
+			$theStylePath = $this->style_url . '/' . $theStyle;
+		}
+		return $theStylePath;
 	}
 
 // Add the links to the <head> of each blog page
