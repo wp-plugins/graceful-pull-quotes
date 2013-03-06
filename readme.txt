@@ -83,12 +83,12 @@ Enjoy!
 == Changelog ==
 
 = 2.4.2 (27 November 2012) =
-* Bugfix: Pull-quote text in an HTML comment is now trimmed of spaces
-* Bugfix: better testing for empty pull-quotes before rendering
+* Pull-quote text in an HTML comment is now trimmed of spaces
+* Improved testing for empty pull-quotes before rendering
 * Bugfix: Was not saving container setting correctly -- error in HTML rendering on Settings page.
 
 = 2.4.1 (3 September 2011) =
-* Bugfix: A jspullquotes.css file in a theme is now properly detected in both Parent and Child themes
+* A jspullquotes.css file in a theme is now properly detected in both Parent and Child themes
 
 = 2.4 (5 May 2011) =
 * Updated filenames to reflect new plugin name.
