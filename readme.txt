@@ -193,7 +193,7 @@ Enjoy!
 * reorganized files in jspullquotes directory
 * added JSPQPATH constant to make paths less brittle
 * changed User Capability requirement to "switch_themes"
-* test for both "switch_themes" and "edit_themes" capabilites before writing "edit stylesheet" box to admin screen
+* test for both "switch_themes" and "edit_themes" capabilities before writing "edit stylesheet" box to admin screen
 * changed name of class, for filename consistency
 
 = 1.6 (25 July 2007) =
