@@ -3,7 +3,7 @@ Contributors: strider72
 Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/#download
 Tags: theme, pull-quotes, pull quotes, blurb, quotation, quote
 Requires at least: 2.6
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: 2.4.2
 
 Allows you to make pull-quotes without duplicating content. If the plugin is disabled the pull-quotes disappear seamlessly.
@@ -57,7 +57,7 @@ BUG: HTML entities (e.g. accented characters) inside HTML comments get messed up
 
 = Workaround Regarding Buggy Browsers =
 
-There is a bug in the JavaScript rendering of certain less common browsers (including older versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
+There is a bug in the JavaScript rendering of certain less common browsers (including very old versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
 
 	A) Do the alternate text as described.  Affected browsers will show the *actual* text in the span as though the alternate were not there.
 
@@ -81,6 +81,9 @@ Enjoy!
 --Stephen Rider
 
 == Changelog ==
+
+= 2.5 (10 February 2015) =
+* Added <aside> to options for HTML container
 
 = 2.4.2 (27 November 2012) =
 * Pull-quote text in an HTML comment is now trimmed of spaces

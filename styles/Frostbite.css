@@ -16,7 +16,7 @@ Author URI: http://striderweb.com/
 */
 /* NOTE: Styles are also applied from resources/jspullquotes-core.css */
 
-blockquote.pullquote, div.pullquote {
+blockquote.pullquote, aside.pullquote, div.pullquote {
 	width: 10em;
 	text-align: center;
 	font-size: 1.1em;
@@ -28,7 +28,7 @@ blockquote.pullquote, div.pullquote {
 	border-style: solid none solid none;
 }
 
-blockquote.pullquote p, div.pullquote p {
+blockquote.pullquote p, aside.pullquote p, div.pullquote p {
 	font-family: Arial, sans-serif;
 	padding: 0.6em 0.4em;
 }

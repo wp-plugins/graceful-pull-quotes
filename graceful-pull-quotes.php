@@ -3,8 +3,8 @@
 Plugin Name: Graceful Pull-Quotes
 Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
-Version: 2.4.2
-Date: 2012-11-27
+Version: 2.5a
+Date: 2015-02-10
 Author: Stephen Rider
 Author URI: http://striderweb.com/
 */
@@ -21,6 +21,8 @@ class jspullquotes {
 	TO DO:	Fix encoding bug for extended ASCII text in alt-text comments
 			-	Maybe related to WP core bug: http://core.trac.wordpress.org/ticket/8912 or 3603
 	TO DO:	Option: [B]racket-capitalize quotes starting with lowercase letter
+	TO DO:  Make first-letter capitalization optional
+	TO DO:  Maybe add hooks to allow other plugins to modify pull-quote text https://wordpress.org/support/topic/plugin-graceful-pull-quotes-feature-request-meta-tag-data
 */
 
 	var $option_version = '2.1.2';
@@ -46,11 +48,11 @@ class jspullquotes {
 
 /*
 		$wud = wp_upload_dir();
-		$this->style_dir = $wud['basedir'] . '/styles';
+		$this->style_dir = $wud['basedir'] . '/bstyles';
 		$this->style_url = $wud['baseurl'] . '/styles';
 error_log($this->style_dir);
 error_log($this->style_url);
-*/
+/**/
 
 		load_plugin_textdomain( 'jspullquotes',
 			'wp-content/plugins/' . basename( $this->plugin_dir ) . '/lang',
@@ -61,6 +63,7 @@ error_log($this->style_url);
 		add_action( 'admin_menu', array( &$this, 'add_settings_page' ) );
 	}
 
+	function set_plugin_path_constants(){}
 	function get_plugin_data( $param = null ) {
 		// You can optionally pass a specific value to fetch, e.g. 'Version' -- but it's inefficient to do that multiple times
 		// As of WP 2.5.1: 'Name', 'Title', 'Description', 'Author', 'Version'
@@ -326,7 +329,7 @@ EOT;
 			$newoptions = $_POST[$this->option_name];
 			foreach( $this->option_bools as $bool ) { 
 				// explicitly set all checkboxes true or false
-				$newoptions[$bool] = $newoptions[$bool] ? true : false;
+				$newoptions[$bool] = isset( $newoptions[$bool] ) ? true : false;
 			}
 			$newoptions['last_opts_ver'] = $this->option_version; // always update
 			update_option( $this->option_name, $newoptions );
@@ -404,6 +407,7 @@ EOT;
 <?php
 		$cmbq_container = '<select name="' . $this->option_name . '[q_container]" id="q_container">
 							<option value="blockquote"' . $this->checkcombo( $opts, 'q_container', 'blockquote', true ) . '>&lt;blockquote&gt;</option>
+							<option value="aside"' . $this->checkcombo( $opts, 'q_container', 'aside' ) . '>&lt;aside&gt;</option>
 							<option value="div"' . $this->checkcombo( $opts, 'q_container', 'div' ) . '>&lt;div&gt;</option>
 						</select>';
 ?>
@@ -420,7 +424,7 @@ EOT;
 						<label for="skip_internal_links"><input type="checkbox" name="<?php echo $this->option_name; ?>[skip_internal_links]" id="skip_internal_links" value="true"<?php echo( $this->checkflag( $opts, 'skip_internal_links' ) ); ?> /> <?php $this->p_e( 'Remove internal links (href="#id") from pull-quotes' ); ?></label></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><acronym title="<?php $this->p_e( 'Cascading Style Sheets' ); ?>">CSS</acronym></th>
+					<th scope="row"><abbr title="<?php $this->p_e( 'Cascading Style Sheets' ); ?>">CSS</abbr></th>
 					<td><label for="omit_styles"><input type="checkbox" name="<?php echo $this->option_name; ?>[omit_styles]" id="omit_styles" value="true"<?php echo( $this->checkflag( $opts, 'omit_styles' ) ); ?> /> <?php $this->p_e( 'Do not link CSS' ); ?></label><br /><?php $this->p_e( 'Check this if you prefer to manually put your pull-quote styles elsewhere' ); ?><br />
 						<br />
 						<input type="text" name="<?php echo $this->option_name ?>[quote_class]" id="quote_class" value="<?php echo( $this->checktext( $opts,'quote_class','pullquote' ) ); ?>" /><label for="quote_class"> <?php $this->p_e( 'Class selector for default pull-quote' ); ?></label><br />
