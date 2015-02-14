@@ -10,9 +10,9 @@ Author URI: http://striderweb.com/
 /*	NOTE: Right-side quotes will get the .pullquote class AND the .pqRight class. 
 	Sample Pull-Quote HTML:
 
-<blockquote class="pullquote">
+<aside class="pullquote">
 	<p>Zowie!</p>
-</blockquote>
+</aside>
 */
 /* NOTE: Styles are also applied from resources/jspullquotes-core.css */
 
