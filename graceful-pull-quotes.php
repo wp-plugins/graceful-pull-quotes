@@ -28,6 +28,7 @@ class jspullquotes {
 	var $option_version = '2.1.2';
 	var $option_name = 'plugin_jspullquotes_settings';
 	var $option_bools = array ( 'alt_sides', 'alt_text', 'skip_links', 'skip_internal_links', 'omit_styles' );
+	var $tdSlug = 'jspullquotes';
 
 	function jspullquotes() {
 
@@ -41,20 +42,20 @@ class jspullquotes {
 			define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
 
 		$this->plugin_dir = ( dirname( __FILE__ ) );
-		$this->plugin_url = WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) );
+		$this->plugin_url = trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) );
 // TO DO: turn these into user options:
 		$this->style_dir = $this->plugin_dir . '/styles';
 		$this->style_url = $this->plugin_url . '/styles';
 
 /*
 		$wud = wp_upload_dir();
-		$this->style_dir = $wud['basedir'] . '/bstyles';
+		$this->style_dir = $wud['basedir'] . '/styles';
 		$this->style_url = $wud['baseurl'] . '/styles';
 error_log($this->style_dir);
 error_log($this->style_url);
 /**/
 
-		load_plugin_textdomain( 'jspullquotes',
+		load_plugin_textdomain( $this->tdSlug,
 			'wp-content/plugins/' . basename( $this->plugin_dir ) . '/lang',
 			basename( $this->plugin_dir ) . '/lang' );
 
@@ -63,7 +64,6 @@ error_log($this->style_url);
 		add_action( 'admin_menu', array( &$this, 'add_settings_page' ) );
 	}
 
-	function set_plugin_path_constants(){}
 	function get_plugin_data( $param = null ) {
 		// You can optionally pass a specific value to fetch, e.g. 'Version' -- but it's inefficient to do that multiple times
 		// As of WP 2.5.1: 'Name', 'Title', 'Description', 'Author', 'Version'
@@ -80,14 +80,6 @@ error_log($this->style_url);
 		return $output;
 	}
 
-// abstracting l18n functions so I don't have to pass domain each time
-	function p__( $text ) {
-		return __( $text, 'jspullquotes' );
-	}
-	function p_e( $text ) {
-		_e( $text, 'jspullquotes' );
-	}
-
 	function set_defaults( $mode = 'merge', $curr_options = null ) {
 	// $mode can also be set to "unset" or "reset"
 		if ( 'unset' == $mode ) {
@@ -97,13 +89,13 @@ error_log($this->style_url);
 
 		$options = array(
 			'last_opts_ver' => $this->option_version,
-			'style' => 'default_style',
+			'style' => 'Default.css',
 			'def_side' => 'right', 
 			'alt_sides' => true, 
 			'alt_text' => true, 
 			'skip_links' => true, 
 			'skip_internal_links' => true, 
-			'q_container' => 'blockquote', 
+			'q_container' => 'aside',
 			'omit_styles' => false,
 			'quote_class' => 'pullquote', 
 			'quote_class_alt' => 'pullquote pqRight' );
@@ -126,7 +118,6 @@ error_log($this->style_url);
 
 // Check to see if new version.  If so, make necessary updates to settings
 	function get_options() {
-//		register_uninstall_hook();
 		static $options;
 		if ( ! $options ) {
 			// Option key has changed.  Check DB for old name and update if needed
@@ -144,20 +135,14 @@ error_log($this->style_url);
 					$options[$bool] = $options[$bool] ? true : false;
 				}
 				if ( $options['style_name'] ) {
-					if ( 'Default.css' == $options['style_name'] ) {
-						$options['style_name'] = 'default_style';
-					} elseif ( '.css' != substr( $options['style_name'], -4 ) ) {
+					if ( '.css' != substr( $options['style_name'], -4 ) ) {
 						$options['style_name'] .= '/pullquote.css';
 					}
 					$options['style'] = $options['style_name'];
 					unset( $options['style_name'] );
 				} else if ( $options['style_url'] ) {
-					if( 'Default.css' == substr($options['style_url'], -11) ) {
-						$options['style'] = 'default_style';
-					} else {
-						// remove styles url from beginning of style file
-						$options['style'] = preg_replace( '|^' . preg_quote( $this->plugin_url . '/styles/', '|' ) . '|', '', $options['style_url'] );
-					}
+					// remove styles url from beginning of style file
+					$options['style'] = preg_replace( '|^' . preg_quote( $this->plugin_url . '/styles/', '|' ) . '|', '', $options['style_url'] );
 					unset( $options['style_url'] );
 				}
 				if ( $options['last_used'] ) unset( $options['last_used'] );
@@ -179,19 +164,18 @@ error_log($this->style_url);
 		return $file;
 	}
 
-// Part of Core after WordPress 3.3 is released, but we need it now for get_pqcss()
-// See http://core.trac.wordpress.org/ticket/18302
+// TODO: May be coming to WP Core, but until then we need this for get_pqcss() -- See http://core.trac.wordpress.org/ticket/18302
 	function locate_template_uri( $template_names ) {
 		$located = '';
 		foreach ( (array) $template_names as $template_name ) {
 			if ( !$template_name )
 				continue;
 
-			if ( file_exists(get_stylesheet_directory() . '/' . $template_name)) {
-				$located = get_stylesheet_directory_uri() . '/' . $template_name;
+			if ( file_exists( trailingslashit( get_stylesheet_directory() ) . $template_name)) {
+				$located = trailingslashit( get_stylesheet_directory_uri() ) . $template_name;
 				break;
-			} else if ( file_exists(get_template_directory() . '/' . $template_name) ) {
-				$located = get_template_directory_uri() . '/' . $template_name;
+			} else if ( file_exists( trailingslashit( get_template_directory() ) . $template_name) ) {
+				$located = trailingslashit( get_template_directory_uri() ) . $template_name;
 				break;
 			}
 		}
@@ -213,8 +197,8 @@ error_log($this->style_url);
 		if ( file_exists( locate_template( 'jspullquotes.css' ) ) ) {
 			// A stylesheet embedded in a WordPress theme overrides Options Page selection
 			$theStylePath = $this->locate_template_uri( 'jspullquotes.css' );
-		} elseif ( file_exists( $this->style_dir . '/' . $theStyle ) ) {
-			$theStylePath = $this->style_url . '/' . $theStyle;
+		} elseif ( file_exists( trailingslashit( $this->style_dir ) . $theStyle ) ) {
+			$theStylePath = trailingslashit( $this->style_url ) . $theStyle;
 		}
 		return $theStylePath;
 	}
@@ -224,7 +208,7 @@ error_log($this->style_url);
 		$options = $this->get_options();
 		$plugin_version = $this->get_plugin_data( 'Version' );
 		$optionsarray = '"' .
-			$options['skip_links'] . '", "' . 
+			$options['skip_links'] . '", "' .
 			$options['skip_internal_links'] . '", "' . 
 			$options['def_side'] . '", "' . 
 			$options['alt_sides'] . '", "' . 
@@ -258,7 +242,7 @@ EOT;
 // Add the configuration screen to the Design menu in Admin
 	function add_settings_page() {
 		if ( current_user_can('switch_themes') ) {
-			$page = add_theme_page( $this->p__( 'Pull-Quote Settings' ), $this->p__( 'Pull-Quotes' ), 'switch_themes', 'pull-quotes', array( &$this, 'settings_page' ) );
+			$page = add_theme_page( __( 'Pull-Quote Settings', $this->tdSlug ), __( 'Pull-Quotes', $this->tdSlug ), 'switch_themes', 'pull-quotes', array( &$this, 'settings_page' ) );
 
 //			add_action( "admin_head-$page", array( &$this, 'admin_head' ) );
 			add_action( "admin_print_scripts-$page", array( &$this, 'admin_head' ) );
@@ -297,29 +281,16 @@ EOT;
 	}
 
 	function add_ozh_adminmenu_icon( $hook ) {
-		$icon = WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/resources/menu_icon.png';
+		$icon = trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) ) . '/resources/menu_icon.png';
 		if ( $hook == 'pull-quotes' ) return $icon;
 		return $hook;
 	}
 
 // these three functions are used by the settings page to display set options in the form controls when the page is opened
 
-// for checkboxes
-	function checkflag( $options, $optname ) {
-		return $options[$optname] ? ' checked="checked"' : '';
-	}
-
 // for text boxes or textarea
 	function checktext( $options, $optname, $optdefault = '' ) {
 		return $options[$optname] ? $options[$optname] : $optdefault;
-	}
-
-// for dropdowns
-	function checkcombo( $options, $optname, $thisopt, $is_default = false ) {
-		return (
-			( $is_default && ! $options[$optname] ) ||
-			$options[$optname] == $thisopt
-		) ? ' selected="selected"' : '';
 	}
 
 // finally, the Settings Page itself
@@ -336,7 +307,7 @@ EOT;
 			echo '<div id="message" class="updated fade"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 		} 
 		
-		// get options for use in formsetting functions
+		// get options for use in form-setting functions
 		$opts = $this->get_options();
 
 		// Get array of CSS files for Style dropdown
@@ -345,7 +316,7 @@ EOT;
 			while ( false !== ( $file = readdir( $handle ) ) ) {
 				if ( substr( $file, 0, 1) != '.' ) {
 					$filename = basename( $file, '.css' );
-					if( is_dir( $this->style_dir . '/' . $file ) ) 
+					if( is_dir( trailingslashit( $this->style_dir ) . $file ) )
 						$file .= '/pullquote.css';
 					$arrStyles[] = array( 'name' => $filename, 'file'=> $file );
 				}
@@ -353,7 +324,7 @@ EOT;
 			closedir( $handle );
 			unset( $handle, $file, $filename, $fileurl );
 		}
-		if ( ! $arrStyles[0] ) {
+		if ( ! isset( $arrStyles[0] ) ) {
 		// If no styles, use the core Default style
 			$arrStyles = array(
 				array(
@@ -365,70 +336,70 @@ EOT;
 
 	?>
 <div class="wrap">
-	<h2><?php $this->p_e( 'Pull-Quote Settings' ); ?></h2>
+	<h2><?php _e( 'Pull-Quote Settings', $this->tdSlug ); ?></h2>
 	<form action="themes.php?page=pull-quotes" method="post">
 		<?php
 		if ( function_exists( 'wp_nonce_field' ) )
 			wp_nonce_field( 'jspullquotes-update-options' );
 		?>
-		<h3><?php $this->p_e( 'Basic Options' ); ?></h3>
+		<h3><?php _e( 'Basic Options', $this->tdSlug ); ?></h3>
 		<table class="form-table">
 			<tbody>
 				<tr valign="top">
-					<th scope="row"><?php $this->p_e( 'Appearance' ); ?></th>
+					<th scope="row"><?php _e( 'Appearance', $this->tdSlug ); ?></th>
 					<td><label for="style">
-						<select name="<?php echo $this->option_name ?>[style]" id="style"<?php echo( $arrStyles[1] ? '' : ' title="' . $this->p__( 'Only one style is available' ) . '" class="code disabled" disabled="disabled"' ) ?>>
+						<select name="<?php echo $this->option_name ?>[style]" id="style"<?php echo( isset( $arrStyles[1] ) ? '' : ' title="' . __( 'Only one style is available', $this->tdSlug ) . '" class="code disabled" disabled="disabled"' ) ?>>
 <?php
 			foreach ( $arrStyles as $style ) {
-				$deftag = ( $style['name'] == 'Default' ) ? true : false;
-				echo '							<option value="' . $style['file'] . '"' . $this->checkcombo( $opts, 'style', $style['file'], $deftag ) . '>' . $this->p__( $style['name'] ) . "</option>\n";
+//				$deftag = ( $style['name'] == 'Default' ) ? true : false;
+				echo '							<option value="' . $style['file'] . '"' . selected( $opts['style'], $style['file'], false ) . '>' . __( $style['name'], $this->tdSlug ) . "</option>\n";
 			}
 ?>						</select>
-					</label> <a href="#" onclick="pullquote_preview_pop('<?php echo( $this->plugin_url ); // FIXME: this link should only appear if there's JavaScript, or make it work without ?>/resources', '<?php echo( $this->style_url ); ?>', document.getElementById('style').value); return false;" title="<?php $this->p_e( 'show a preview of the selected style in a pop-up window' ); ?>" class="button-secondary"><?php $this->p_e( 'preview' ); ?></a><br />
-					<?php $this->p_e( 'Note: a "jspullquotes.css" file in the active Theme directory will override this setting'); ?></td>
+					</label> <a href="#" onclick="pullquote_preview_pop('<?php echo( $this->plugin_url ); // FIXME: this link should only appear if there's JavaScript, or make it work without ?>/resources', '<?php echo( $this->style_url ); ?>', document.getElementById('style').value); return false;" title="<?php _e( 'show a preview of the selected style in a pop-up window', $this->tdSlug ); ?>" class="button-secondary"><?php _e( 'preview', $this->tdSlug ); ?></a><br />
+					<?php _e( 'Note: a "jspullquotes.css" file in the active Theme directory will override this setting', $this->tdSlug ); ?></td>
 				</tr>
 <?php
 		$cmbpicksides = '<select name="' . $this->option_name . '[def_side]" id="def_side">
-							<option value="left"' . $this->checkcombo( $opts, 'def_side', 'left', true ) . '>' . $this->p__( 'left' ) . '</option>
-							<option value="right"' . $this->checkcombo( $opts, 'def_side', 'right' ) . '>' . $this->p__( 'right' ) . '</option>
+							<option value="left"' . selected( $opts['def_side'], 'left', false ) . '>' . __( 'left', $this->tdSlug ) . '</option>
+							<option value="right"' . selected( $opts['def_side'], 'right', false ) . '>' . __( 'right', $this->tdSlug ) . '</option>
 						</select>';
 ?>
 				<tr valign="top">
-					<th scope="row"><?php $this->p_e( 'Position' ); ?></th>
+					<th scope="row"><?php _e( 'Position', $this->tdSlug ); ?></th>
 					<td><label for="def_side">
-						<?php echo( sprintf( $this->p__( 'Display quotes on %s side' ), $cmbpicksides ) ); ?></label><br />
-						<label for="alt_sides"><input type="checkbox" name="<?php echo $this->option_name; ?>[alt_sides]" id="alt_sides" value="true"<?php echo( $this->checkflag( $opts, 'alt_sides' ) ); ?> /> <?php $this->p_e( 'Successive quotes on one page alternate sides' ); ?></label><br />
-						<label for="alt_text"><input type="checkbox" name="<?php echo $this->option_name; ?>[alt_text]" id="alt_text" value="true"<?php echo( $this->checkflag( $opts, 'alt_text' ) ); ?> /> <?php $this->p_e( 'Use alternate text if available' ); ?></label> (<a href="<?php echo( $this->plugin_url ); ?>/resources/help/alt-text-info.<?php $this->p_e( 'en_US' ); ?>.htm"><?php $this->p_e( 'how?' ); ?></a>)</td>
+						<?php echo( sprintf( __( 'Display quotes on %s side', $this->tdSlug ), $cmbpicksides ) ); ?></label><br />
+						<label for="alt_sides"><input type="checkbox" name="<?php echo $this->option_name; ?>[alt_sides]" id="alt_sides" value="true"<?php checked( $opts['alt_sides'] ); ?> /> <?php _e( 'Successive quotes on one page alternate sides', $this->tdSlug ); ?></label><br />
+						<label for="alt_text"><input type="checkbox" name="<?php echo $this->option_name; ?>[alt_text]" id="alt_text" value="true"<?php checked( $opts['alt_text'] ); ?> /> <?php _e( 'Use alternative text if available', $this->tdSlug ); ?></label> (<a href="<?php echo( $this->plugin_url ); ?>/resources/help/alt-text-info.<?php _e( 'en_US', $this->tdSlug ); ?>.htm"><?php _e( 'how?', $this->tdSlug ); ?></a>)</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<h3><?php $this->p_e( 'Advanced Options' ); ?></h3>
+		<h3><?php _e( 'Advanced Options', $this->tdSlug ); ?></h3>
 <?php
 		$cmbq_container = '<select name="' . $this->option_name . '[q_container]" id="q_container">
-							<option value="blockquote"' . $this->checkcombo( $opts, 'q_container', 'blockquote', true ) . '>&lt;blockquote&gt;</option>
-							<option value="aside"' . $this->checkcombo( $opts, 'q_container', 'aside' ) . '>&lt;aside&gt;</option>
-							<option value="div"' . $this->checkcombo( $opts, 'q_container', 'div' ) . '>&lt;div&gt;</option>
+							<option value="blockquote"' . selected( $opts['q_container'], 'blockquote', false ) . '>&lt;blockquote&gt;</option>
+							<option value="aside"' . selected( $opts['q_container'], 'aside', false ) . '>&lt;aside&gt;</option>
+							<option value="div"' . selected( $opts['q_container'], 'div', false ) . '>&lt;div&gt;</option>
 						</select>';
 ?>
 		<table class="form-table">
 			<tbody>
 				<tr valign="top">
-					<th scope="row"><?php $this->p_e( 'HTML Container' ); ?></th>
+					<th scope="row"><?php _e( 'HTML Container', $this->tdSlug ); ?></th>
 					<td><label for="q_container">
-						<?php echo $cmbq_container . ' ' . $this->p__( 'Type of tag that will contain the pull-quote' ) ?></label></td>
+						<?php echo $cmbq_container . ' ' . __( 'Type of tag that will contain the pull-quote', $this->tdSlug ) ?></label></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><?php $this->p_e( 'HTML Links' ); ?></th>
-					<td><label for="skip_links"><input type="checkbox" name="<?php echo $this->option_name; ?>[skip_links]" id="skip_links" value="true"<?php echo( $this->checkflag( $opts, 'skip_links' ) ); ?> /> <?php $this->p_e( 'Remove external links from pull-quotes' ); ?></label> <strong><?php $this->p_e( '(recommended)' ); ?></strong><br />
-						<label for="skip_internal_links"><input type="checkbox" name="<?php echo $this->option_name; ?>[skip_internal_links]" id="skip_internal_links" value="true"<?php echo( $this->checkflag( $opts, 'skip_internal_links' ) ); ?> /> <?php $this->p_e( 'Remove internal links (href="#id") from pull-quotes' ); ?></label></td>
+					<th scope="row"><?php _e( 'HTML Links', $this->tdSlug ); ?></th>
+					<td><label for="skip_links"><input type="checkbox" name="<?php echo $this->option_name; ?>[skip_links]" id="skip_links" value="true"<?php checked( $opts['skip_links'] ); ?> /> <?php _e( 'Remove external links from pull-quotes', $this->tdSlug ); ?></label> <strong><?php _e( '(recommended)', $this->tdSlug ); ?></strong><br />
+						<label for="skip_internal_links"><input type="checkbox" name="<?php echo $this->option_name; ?>[skip_internal_links]" id="skip_internal_links" value="true"<?php checked( $opts['skip_internal_links'] ); ?> /> <?php _e( 'Remove internal links (href="#id") from pull-quotes', $this->tdSlug ); ?></label></td>
 				</tr>
 				<tr valign="top">
-					<th scope="row"><abbr title="<?php $this->p_e( 'Cascading Style Sheets' ); ?>">CSS</abbr></th>
-					<td><label for="omit_styles"><input type="checkbox" name="<?php echo $this->option_name; ?>[omit_styles]" id="omit_styles" value="true"<?php echo( $this->checkflag( $opts, 'omit_styles' ) ); ?> /> <?php $this->p_e( 'Do not link CSS' ); ?></label><br /><?php $this->p_e( 'Check this if you prefer to manually put your pull-quote styles elsewhere' ); ?><br />
+					<th scope="row"><abbr title="<?php _e( 'Cascading Style Sheets', $this->tdSlug ); ?>">CSS</abbr></th>
+					<td><label for="omit_styles"><input type="checkbox" name="<?php echo $this->option_name; ?>[omit_styles]" id="omit_styles" value="true"<?php checked( $opts['omit_styles'] ); ?> /> <?php _e( 'Do not link CSS', $this->tdSlug ); ?></label><br /><?php _e( 'Check this if you prefer to manually put your pull-quote styles elsewhere', $this->tdSlug ); ?><br />
 						<br />
-						<input type="text" name="<?php echo $this->option_name ?>[quote_class]" id="quote_class" value="<?php echo( $this->checktext( $opts,'quote_class','pullquote' ) ); ?>" /><label for="quote_class"> <?php $this->p_e( 'Class selector for default pull-quote' ); ?></label><br />
-						<input type="text" name="<?php echo $this->option_name ?>[quote_class_alt]" id="quote_class_alt" value="<?php echo( $this->checktext( $opts, 'quote_class_alt', 'pullquote pqRight' ) ); ?>"/><label for="quote_class_alt"> <?php $this->p_e( 'Class selector for alt-side pull-quote' ); ?></label>
+						<input type="text" name="<?php echo $this->option_name ?>[quote_class]" id="quote_class" value="<?php echo( $this->checktext( $opts,'quote_class','pullquote' ) ); ?>" /><label for="quote_class"> <?php _e( 'Class selector for default pull-quote', $this->tdSlug ); ?></label><br />
+						<input type="text" name="<?php echo $this->option_name ?>[quote_class_alt]" id="quote_class_alt" value="<?php echo( $this->checktext( $opts, 'quote_class_alt', 'pullquote pqRight' ) ); ?>"/><label for="quote_class_alt"> <?php _e( 'Class selector for alt-side pull-quote', $this->tdSlug ); ?></label>
 					</td>
 				</tr>
 			</tbody>
@@ -440,6 +411,32 @@ EOT;
 	<?php
 		// add attribution to page footer
 		add_action( 'in_admin_footer', array( &$this, 'admin_footer' ), 9 );
+	}
+
+	// DEPRECATED -- maybe safe to remove
+
+	function p__( $text ) {
+		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', '__()' );
+		return __( $text, $this->tdSlug );
+	}
+	function p_e( $text ) {
+		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', '_e()' );
+		_e( $text, $this->tdSlug );
+	}
+
+	// for checkboxes
+	function checkflag( $options, $optname ) {
+		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', 'checked()' );
+		return $options[$optname] ? ' checked="checked"' : '';
+	}
+
+// for dropdowns
+	function checkcombo( $options, $optname, $thisopt, $is_default = false ) {
+		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', 'selected()' );
+		return (
+			( $is_default && ! $options[$optname] ) ||
+			$options[$optname] == $thisopt
+		) ? ' selected="selected"' : '';
 	}
 
 } // end class

@@ -20,7 +20,7 @@ Upload the ENTIRE folder to your plugins folder (`/wp-content/plugins/`) while k
 
 Then activate it on your plugin management page.
 
-Finally, go to the Pull-Quotes settings panel, (under the "Appearance" tab), and select your options.  This step is optional, as the program works pretty well right out of the box, but I recommend at least previewing the different quote styles.
+Finally, go to the Pull-Quotes settings panel, (under the "Appearance" tab), and select your options.  This step is optional, as the program works pretty well right out of the box, but you might want to at least previewing the different quote styles.
 
 == Usage ==
 
@@ -82,8 +82,12 @@ Enjoy!
 
 == Changelog ==
 
-= 2.5 (10 February 2015) =
-* Added <aside> to options for HTML container
+= 2.5a (10 February 2015) =
+* Added <aside> to options for HTML container, and set that to default for new installs
+* Reworked how the Default Style backup works if Styles folder is not found
+* Removed the p_e() and p__() textdomain abstractions, to improve compatibility with upcoming translation features of WordPress
+* Now using some built-in WP abstractions: trailingslashit(), selected(), and checked()
+* Code cleanup
 
 = 2.4.2 (27 November 2012) =
 * Pull-quote text in an HTML comment is now trimmed of spaces
