@@ -3,8 +3,8 @@
 Plugin Name: Graceful Pull-Quotes
 Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
-Version: 2.5a
-Date: 2015-02-10
+Version: 2.5
+Date: 2015-02-17
 Author: Stephen Rider
 Author URI: http://striderweb.com/
 */
@@ -12,17 +12,15 @@ Author URI: http://striderweb.com/
 class jspullquotes {
 
 /* To Do
-	TO DO:	allow user to specify location of "styles" folder
+	TODO:	allow user to specify location of "styles" folder
 		- replace $style_path and $style_url with user options
-	TO DO:	add optional "Uninstall" routine to deactivation hook
-	TO DO:	add UI for new Style headers
-	TO DO:	find better way to combine style and "core" CSS files into single call
-	TO DO:	(??) Allow for semi-random styling
-	TO DO:	Fix encoding bug for extended ASCII text in alt-text comments
+	TODO:	add optional "Uninstall" routine to deactivation hook
+	TODO:	find better way to combine style and "core" CSS files into single call
+	TODO:	(??) Allow for semi-random styling
+	TODO:	Fix encoding bug for extended ASCII text in alt-text comments
 			-	Maybe related to WP core bug: http://core.trac.wordpress.org/ticket/8912 or 3603
-	TO DO:	Option: [B]racket-capitalize quotes starting with lowercase letter
-	TO DO:  Make first-letter capitalization optional
-	TO DO:  Maybe add hooks to allow other plugins to modify pull-quote text https://wordpress.org/support/topic/plugin-graceful-pull-quotes-feature-request-meta-tag-data
+	TODO:	Option: [B]racket-capitalize quotes starting with lowercase letter
+	TODO:  Make first-letter capitalization optional
 */
 
 	var $option_version = '2.1.2';
@@ -43,7 +41,7 @@ class jspullquotes {
 
 		$this->plugin_dir = ( dirname( __FILE__ ) );
 		$this->plugin_url = trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) );
-// TO DO: turn these into user options:
+// TODO: turn these into user options:
 		$this->style_dir = $this->plugin_dir . '/styles';
 		$this->style_url = $this->plugin_url . '/styles';
 
