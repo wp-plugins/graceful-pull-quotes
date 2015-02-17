@@ -11,7 +11,7 @@ var pullquote = {
 		var $alttext = arrOptions[4];
 //		var $capfirst = arrOptions[5];
 		var $qcontainer = arrOptions[5];
-		if ($qcontainer=='') {$qcontainer='blockquote';};
+		if ($qcontainer=='') {$qcontainer='aside';};
 		var $defquoteclass = arrOptions[6];
 		if ($defquoteclass=='') {$defquoteclass='pullquote';};
 		var $defquoteclassAlt = arrOptions[7];

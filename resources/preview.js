@@ -22,7 +22,7 @@ function pullquote_preview_pop(corePath, stylePath, styleFile) {
 	varWinDoc.writeln("<\/head>"); 
 	varWinDoc.writeln("<body>");
 	varWinDoc.writeln("<p>Dolor amet nulla, ullamcorper luptatum nulla in nulla duis, iriuredolor illum et dolor, odio exerci commodo, esse commodo. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<\/p>");
-	varWinDoc.writeln("<blockquote class=\"pullquote\"><p>Semper ubi sub ubi<\/p><\/blockquote>");
+	varWinDoc.writeln("<aside class=\"pullquote\"><p>Semper ubi sub ubi<\/p><\/aside>");
 	varWinDoc.writeln("<p>Augue exerci esse autem, ex aliquam crisare ad esse at, nostrud quis dolore qui iusto in, magna adipiscing. <span class=\"pullquote\">Semper ubi sub ubi<\/span>. Hendrerit blandit te in et augue volutpat delenit consectetuer te delenit te ut iriuredolor ut eros accumsan facilisis nisl lorem. Molestie at feugait at exerci ea aliquip, euismod praesent, duis sed minim dolore! <\/p>"); 
 	varWinDoc.writeln("<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<\/p>");	varWinDoc.writeln("<\/body>");
 	varWinDoc.writeln("<\/html>");
