@@ -7,6 +7,8 @@ Version: 2.5
 Date: 2015-02-17
 Author: Stephen Rider
 Author URI: http://striderweb.com/
+Text Domain: jspullquotes
+Domain Path: /lang
 */
 
 class jspullquotes {
