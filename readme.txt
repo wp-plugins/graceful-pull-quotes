@@ -82,10 +82,10 @@ Enjoy!
 
 == Changelog ==
 
-= 2.5a (10 February 2015) =
-* Added <aside> to options for HTML container, and set that to default for new installs
+= 2.5 (17 February 2015) =
+* Added "aside" to options for HTML container, and set that to default for new installs
 * Reworked how the Default Style backup works if Styles folder is not found
-* Removed the p_e() and p__() textdomain abstractions, to improve compatibility with upcoming translation features of WordPress
+* Improved compatibility with upcoming translation features of WordPress
 * Now using some built-in WP abstractions: trailingslashit(), selected(), and checked()
 * Code cleanup
 
