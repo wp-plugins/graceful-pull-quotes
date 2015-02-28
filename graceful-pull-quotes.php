@@ -3,10 +3,10 @@
 Plugin Name: Graceful Pull-Quotes
 Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quotes/
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
+Author: Stephen Rider
+Author URI: http://striderweb.com/nerdaphernalia
 Version: 2.5
 Date: 2015-02-17
-Author: Stephen Rider
-Author URI: http://striderweb.com/
 Text Domain: jspullquotes
 Domain Path: /lang
 */
