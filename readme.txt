@@ -82,6 +82,9 @@ Enjoy!
 
 == Changelog ==
 
+= 2.6.1 (15 April 2015) =
+* Switched links default back to "head"
+
 = 2.6 (15 April 2015) =
 * Added Setting to put the Style and Script links in the page footer, and set "footer" to default
 * Updated hook for Settings link on Plugins page

@@ -108,7 +108,7 @@ error_log($this->style_url);
 			'omit_styles' => false,
 			'quote_class' => 'pullquote', 
 			'quote_class_alt' => 'pullquote pqRight',
-			'links_location' => 'footer'
+			'links_location' => 'head'
 		);
 		if ( 'reset' == $mode ) {
 			delete_option( $this->option_name );
@@ -386,8 +386,8 @@ EOT;
 							<option value="div"' . selected( $opts['q_container'], 'div', false ) . '>&lt;div&gt;</option>
 						</select>';
 		$cmbg_links_location = '<select name="' . $this->option_name . '[links_location]" id="links_location">
-							<option value="head"' . selected( $opts['links_location'], 'head', false ) . '>Page Head</option>
-							<option value="footer"' . selected( $opts['links_location'], 'footer', false ) . '>Page Footer (default)</option>
+							<option value="head"' . selected( $opts['links_location'], 'head', false ) . '>Page Head (default)</option>
+							<option value="footer"' . selected( $opts['links_location'], 'footer', false ) . '>Page Footer</option>
 						</select>';
 ?>
 		<table class="form-table">
