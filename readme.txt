@@ -82,7 +82,7 @@ Enjoy!
 
 == Changelog ==
 
-= 2.6 = (15 April 2015)
+= 2.6 (15 April 2015) =
 * Added Setting to put the Style and Script links in the page footer, and set "footer" to default
 * Updated hook for Settings link on Plugins page
 * Updated PHP4-style constructor function
