@@ -4,7 +4,7 @@ Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-qu
 Tags: theme, pull-quotes, pull quotes, blurb, quotation, quote
 Requires at least: 2.6
 Tested up to: 4.1
-Stable tag: 2.5
+Stable tag: 2.6
 
 Allows you to make pull-quotes without duplicating content. If the plugin is disabled the pull-quotes disappear seamlessly.
 
@@ -82,6 +82,13 @@ Enjoy!
 
 == Changelog ==
 
+= 2.6 = (15 April 2015)
+* Added Setting to put the Style and Script links in the page footer, and set "footer" to default
+* Updated hook for Settings link on Plugins page
+* Updated PHP4-style constructor function
+* Moved a bit of JavaScript into linked file
+* Minor code cleanup
+
 = 2.5 (17 February 2015) =
 * Added "aside" to options for HTML container, and set that to default for new installs
 * Reworked how the Default Style backup works if Styles folder is not found
@@ -92,7 +99,7 @@ Enjoy!
 = 2.4.2 (27 November 2012) =
 * Pull-quote text in an HTML comment is now trimmed of spaces
 * Improved testing for empty pull-quotes before rendering
-* Bugfix: Was not saving container setting correctly -- error in HTML rendering on Settings page.
+* Bugfix: Was not saving container setting correctly -- error in HTML rendering on Settings page
 
 = 2.4.1 (3 September 2011) =
 * A jspullquotes.css file in a theme is now properly detected in both Parent and Child themes
@@ -100,7 +107,7 @@ Enjoy!
 = 2.4 (5 May 2011) =
 * Updated filenames to reflect new plugin name.
 * Updated .po localization files to reflect current code (calling all translators!)
-* A few more tweaks in preparation for adding plugin to the Official WP Extend repository.
+* A few more tweaks in preparation for adding plugin to the Official WP Extend repository
 
 = 2.3 (28 March 2010) =
 * Renamed to "Graceful Pull-Quotes" (formerly "JavaScript Pull-Quotes")

@@ -182,3 +182,5 @@ http://striderweb.com/nerdaphernalia/features/js-dupenode-function/
 function pullQuoteOpts(arrOptions) {
 	pullquote.addEvent(window, 'load', function(){pullquote.init(arrOptions);});
 }
+
+pullQuoteOpts(jspq_options);

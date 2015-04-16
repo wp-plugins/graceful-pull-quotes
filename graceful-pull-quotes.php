@@ -5,8 +5,8 @@ Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quo
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
 Author: Stephen Rider
 Author URI: http://striderweb.com/nerdaphernalia
-Version: 2.5
-Date: 2015-02-17
+Version: 2.6
+Date: 2015-04-15
 Text Domain: jspullquotes
 Domain Path: /lang
 */
@@ -14,23 +14,22 @@ Domain Path: /lang
 class jspullquotes {
 
 /* To Do
+	FIXME:	When script renders HTML comment content, it needs to encode characters and NOT encode tags!  related: http://core.trac.wordpress.org/ticket/8912 or 3603
 	TODO:	allow user to specify location of "styles" folder
 		- replace $style_path and $style_url with user options
 	TODO:	add optional "Uninstall" routine to deactivation hook
 	TODO:	find better way to combine style and "core" CSS files into single call
 	TODO:	(??) Allow for semi-random styling
-	TODO:	Fix encoding bug for extended ASCII text in alt-text comments
-			-	Maybe related to WP core bug: http://core.trac.wordpress.org/ticket/8912 or 3603
 	TODO:	Option: [B]racket-capitalize quotes starting with lowercase letter
 	TODO:  Make first-letter capitalization optional
 */
 
-	var $option_version = '2.1.2';
+	var $option_version = '2.6';
 	var $option_name = 'plugin_jspullquotes_settings';
 	var $option_bools = array ( 'alt_sides', 'alt_text', 'skip_links', 'skip_internal_links', 'omit_styles' );
 	var $tdSlug = 'jspullquotes';
 
-	function jspullquotes() {
+	function __construct() {
 
 		if ( ! defined( 'WP_CONTENT_DIR' ) )
 			define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
@@ -43,7 +42,7 @@ class jspullquotes {
 
 		$this->plugin_dir = ( dirname( __FILE__ ) );
 		$this->plugin_url = trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) );
-// TODO: turn these into user options:
+// TODO: turn style_dir/url into user options:
 		$this->style_dir = $this->plugin_dir . '/styles';
 		$this->style_url = $this->plugin_url . '/styles';
 
@@ -60,8 +59,18 @@ error_log($this->style_url);
 			basename( $this->plugin_dir ) . '/lang' );
 
 		register_activation_hook( __FILE__, array( &$this, 'get_options' ) );
-		add_action( 'wp_head', array( &$this, 'wp_head' ) );
 		add_action( 'admin_menu', array( &$this, 'add_settings_page' ) );
+
+		$this->hook_header_links();
+	}
+
+	function hook_header_links() {
+		$options = $this->get_options();
+		if ( $options['links_location'] == 'footer' ) {
+			add_action( 'wp_print_footer_scripts', array( &$this, 'wp_head' ) );
+		} else {
+			add_action( 'wp_head', array( &$this, 'wp_head' ) );
+		}
 	}
 
 	function get_plugin_data( $param = null ) {
@@ -98,7 +107,9 @@ error_log($this->style_url);
 			'q_container' => 'aside',
 			'omit_styles' => false,
 			'quote_class' => 'pullquote', 
-			'quote_class_alt' => 'pullquote pqRight' );
+			'quote_class_alt' => 'pullquote pqRight',
+			'links_location' => 'footer'
+		);
 		if ( 'reset' == $mode ) {
 			delete_option( $this->option_name );
 			add_option( $this->option_name, $options );
@@ -134,7 +145,7 @@ error_log($this->style_url);
 				foreach ( $this->option_bools as $bool ) { 
 					$options[$bool] = $options[$bool] ? true : false;
 				}
-				if ( $options['style_name'] ) {
+				if ( isset( $options['style_name'] ) ) {
 					if ( '.css' != substr( $options['style_name'], -4 ) ) {
 						$options['style_name'] .= '/pullquote.css';
 					}
@@ -145,7 +156,7 @@ error_log($this->style_url);
 					$options['style'] = preg_replace( '|^' . preg_quote( $this->plugin_url . '/styles/', '|' ) . '|', '', $options['style_url'] );
 					unset( $options['style_url'] );
 				}
-				if ( $options['last_used'] ) unset( $options['last_used'] );
+				if ( isset( $options['last_used'] ) ) unset( $options['last_used'] );
 
 				$options = $this->set_defaults( 'merge', $options );
 			}
@@ -203,7 +214,7 @@ error_log($this->style_url);
 		return $theStylePath;
 	}
 
-// Add the links to the <head> of each blog page
+// Add the links to the blog page
 	function wp_head() {
 		$options = $this->get_options();
 		$plugin_version = $this->get_plugin_data( 'Version' );
@@ -221,16 +232,16 @@ error_log($this->style_url);
 			$currStyle = $this->get_pqcss( $options['style'] );
 			$stylelinks = <<<EOT
 	<link rel="stylesheet" href="{$this->plugin_url}/resources/jspullquotes-core.css" type="text/css" />
-	<link rel="stylesheet" href="{$currStyle}" type="text/css" />\n
+	<link rel="stylesheet" href="{$currStyle}" type="text/css" />
 EOT;
 		}
 		echo <<<EOT
 <!-- Graceful Pull-Quotes plugin v{$plugin_version} -->
-{$stylelinks}	<script type="text/javascript" src="{$this->plugin_url}/resources/jspullquotes.js"></script>
+{$stylelinks}
 	<script type="text/javascript">
 		var jspq_options = new Array({$optionsarray});
-		pullQuoteOpts(jspq_options);
 	</script>
+	<script type="text/javascript" src="{$this->plugin_url}/resources/jspullquotes.js"></script>
 <!-- end pull-quote additions -->\n
 EOT;
 	}
@@ -247,7 +258,7 @@ EOT;
 //			add_action( "admin_head-$page", array( &$this, 'admin_head' ) );
 			add_action( "admin_print_scripts-$page", array( &$this, 'admin_head' ) );
 
-			add_filter( 'plugin_action_links', array( &$this, 'filter_plugin_actions' ), 10, 2 );
+			add_filter( 'plugin_action_links_'.plugin_basename( __FILE__ ), array( &$this, 'filter_plugin_actions' ) );
 			add_filter( 'ozh_adminmenu_icon', array( &$this, 'add_ozh_adminmenu_icon' ) );
 		}
 	}
@@ -268,15 +279,9 @@ EOT;
 	}
 
 // Add action link(s) to plugins page
-	function filter_plugin_actions( $links, $file ) {
-		//Static so we don't call plugin_basename on every plugin row.
-		static $this_plugin;
-		if ( ! $this_plugin ) $this_plugin = plugin_basename( __FILE__ );
-
-		if ( $file == $this_plugin ){
-			$settings_link = '<a href="themes.php?page=pull-quotes">' . __('Settings') . '</a>';
-			array_unshift( $links, $settings_link ); // before other links
-		}
+	function filter_plugin_actions( $links ) {
+		$settings_link = '<a href="themes.php?page=pull-quotes">' . __('Settings') . '</a>';
+		array_unshift( $links, $settings_link ); // before other links
 		return $links;
 	}
 
@@ -286,8 +291,7 @@ EOT;
 		return $hook;
 	}
 
-// these three functions are used by the settings page to display set options in the form controls when the page is opened
-
+// this function is used by the settings page to display set options in the form controls when the page is opened
 // for text boxes or textarea
 	function checktext( $options, $optname, $optdefault = '' ) {
 		return $options[$optname] ? $options[$optname] : $optdefault;
@@ -306,7 +310,7 @@ EOT;
 			update_option( $this->option_name, $newoptions );
 			echo '<div id="message" class="updated fade"><p><strong>' . __('Settings saved.') . '</strong></p></div>';
 		} 
-		
+
 		// get options for use in form-setting functions
 		$opts = $this->get_options();
 
@@ -377,9 +381,13 @@ EOT;
 		<h3><?php _e( 'Advanced Options', $this->tdSlug ); ?></h3>
 <?php
 		$cmbq_container = '<select name="' . $this->option_name . '[q_container]" id="q_container">
+							<option value="aside"' . selected( $opts['q_container'], 'aside', false ) . '>&lt;aside&gt; (default)</option>
 							<option value="blockquote"' . selected( $opts['q_container'], 'blockquote', false ) . '>&lt;blockquote&gt;</option>
-							<option value="aside"' . selected( $opts['q_container'], 'aside', false ) . '>&lt;aside&gt;</option>
 							<option value="div"' . selected( $opts['q_container'], 'div', false ) . '>&lt;div&gt;</option>
+						</select>';
+		$cmbg_links_location = '<select name="' . $this->option_name . '[links_location]" id="links_location">
+							<option value="head"' . selected( $opts['links_location'], 'head', false ) . '>Page Head</option>
+							<option value="footer"' . selected( $opts['links_location'], 'footer', false ) . '>Page Footer (default)</option>
 						</select>';
 ?>
 		<table class="form-table">
@@ -396,11 +404,17 @@ EOT;
 				</tr>
 				<tr valign="top">
 					<th scope="row"><abbr title="<?php _e( 'Cascading Style Sheets', $this->tdSlug ); ?>">CSS</abbr></th>
-					<td><label for="omit_styles"><input type="checkbox" name="<?php echo $this->option_name; ?>[omit_styles]" id="omit_styles" value="true"<?php checked( $opts['omit_styles'] ); ?> /> <?php _e( 'Do not link CSS', $this->tdSlug ); ?></label><br /><?php _e( 'Check this if you prefer to manually put your pull-quote styles elsewhere', $this->tdSlug ); ?><br />
+					<td>
+						<label for="omit_styles"><input type="checkbox" name="<?php echo $this->option_name; ?>[omit_styles]" id="omit_styles" value="true"<?php checked( $opts['omit_styles'] ); ?> /> <?php _e( 'Do not link CSS', $this->tdSlug ); ?></label><br /><?php _e( 'Check this if you prefer to manually put your pull-quote styles elsewhere', $this->tdSlug ); ?><br />
 						<br />
 						<input type="text" name="<?php echo $this->option_name ?>[quote_class]" id="quote_class" value="<?php echo( $this->checktext( $opts,'quote_class','pullquote' ) ); ?>" /><label for="quote_class"> <?php _e( 'Class selector for default pull-quote', $this->tdSlug ); ?></label><br />
 						<input type="text" name="<?php echo $this->option_name ?>[quote_class_alt]" id="quote_class_alt" value="<?php echo( $this->checktext( $opts, 'quote_class_alt', 'pullquote pqRight' ) ); ?>"/><label for="quote_class_alt"> <?php _e( 'Class selector for alt-side pull-quote', $this->tdSlug ); ?></label>
 					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><?php _e( 'Links Location', $this->tdSlug ); ?></th>
+					<td><label for="links_location">
+							<?php echo $cmbg_links_location . ' ' . __( 'Where on the page the Style and Script links will be written', $this->tdSlug ) ?></label></td>
 				</tr>
 			</tbody>
 		</table>
@@ -415,6 +429,7 @@ EOT;
 
 	// DEPRECATED -- maybe safe to remove
 
+	/*
 	function p__( $text ) {
 		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', '__()' );
 		return __( $text, $this->tdSlug );
@@ -430,7 +445,7 @@ EOT;
 		return $options[$optname] ? ' checked="checked"' : '';
 	}
 
-// for dropdowns
+	// for dropdowns
 	function checkcombo( $options, $optname, $thisopt, $is_default = false ) {
 		_deprecated_function( __FUNCTION__, 'Graceful Pull-Quotes 2.5', 'selected()' );
 		return (
@@ -438,7 +453,7 @@ EOT;
 			$options[$optname] == $thisopt
 		) ? ' selected="selected"' : '';
 	}
-
+	*/
 } // end class
 
 $jspullquotes = new jspullquotes;
