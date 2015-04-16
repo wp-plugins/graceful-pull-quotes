@@ -36,7 +36,7 @@ To make a pull-quote:
 
 2. (optional) If you want a pull-quote that has text *different* than the text in the `<span>`, put it inside `<!-- an HTML comment -->` like so:
 
-	`<span class="pullquote"><!-- This sentence should be a pull-quote -->`This sentence, without this middle clause, should be a pull-quote`</span>.
+	`<span class="pullquote"><!-- This sentence should be a pull-quote -->`This sentence, without this middle clause, should be a pull-quote`</span>`.
 
 	The content inside the HTML comment will *only* show up as the pull-quote -- it will not appear at all in the main flow of text.
 
