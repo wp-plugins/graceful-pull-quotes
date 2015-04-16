@@ -5,7 +5,7 @@ Plugin URI: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-quo
 Description: Allows you to create customizable magazine-style pull-quotes without duplicating text in your markup or feeds.
 Author: Stephen Rider
 Author URI: http://striderweb.com/nerdaphernalia
-Version: 2.6
+Version: 2.6.1
 Date: 2015-04-15
 Text Domain: jspullquotes
 Domain Path: /lang

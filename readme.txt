@@ -4,7 +4,7 @@ Donate link: http://striderweb.com/nerdaphernalia/features/wp-javascript-pull-qu
 Tags: theme, pull-quotes, pull quotes, blurb, quotation, quote
 Requires at least: 2.6
 Tested up to: 4.1
-Stable tag: 2.6
+Stable tag: 2.6.1
 
 Allows you to make pull-quotes without duplicating content. If the plugin is disabled the pull-quotes disappear seamlessly.
 
