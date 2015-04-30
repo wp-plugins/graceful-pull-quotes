@@ -59,22 +59,21 @@ BUG: HTML entities (e.g. accented characters) inside HTML comments get messed up
 
 There is a bug in the JavaScript rendering of certain less common browsers (including very old versions of Safari) which causes it to misfire on the alternate text.  Assuming that some of your readers may use these browsers, you have two options:
 
-	A) Do the alternate text as described.  Affected browsers will show the *actual* text in the span as though the alternate were not there.
+A) Do the alternate text as described.  Affected browsers will show the *actual* text in the span as though the alternate were not there.
 
-	B) Put the comment alone in a pullquote span, just _before_ the sentence you're (sort of) quoting.  Affected browsers will not show any pull-quote, but other browsers will work normally.
+B) Put the comment alone in a pullquote span, just _before_ the sentence you're (sort of) quoting.  Affected browsers will not show any pull-quote, but other browsers will work normally.
 	
-	Example:  `<span class="pullquote"><!-- Darn that browser! --></span>`Darn that JavaScript-mangling browser!
+Example:  `<span class="pullquote"><!-- Darn that browser! --></span>`Darn that JavaScript-mangling browser!
 
 == History ==
 
 I've been using WordPress for years now.  In late 2006 I was reading through the excellent book "DOM Scripting", by Jeremy Keith, which teaches how to use JavaScript to manipulate the structure of (X)HTML documents.  As I read through, learning how to move, duplicate, and change parts of a web page with scripts, I came up with the concept that it could be used to make pull-quotes programmatically.  The CSS required to do pull-quotes is easy, but I didn't like the idea of having text duplicated in the HTML for what is ultimately a purely visual effect, so the idea of doing it with JavaScript appealed to me -- it created the entire pull-quote from whole cloth and disappeared entirely if the JavaScript didn't run for some reason.  (That is, it "degrades gracefully" in less capable browsers.)
 
-Entirely by coincidence, blogger Jeff Harrell, right about that time, pointed me to a script written by Roger Johanssen <http://www.456bereastreet.com/archive/200609/automatic_pullquotes_with_javascript_and_css/>.  We weren't even discussing my idea at the time -- it was simply a "hey, this is neat" post on Jeff's blog.  So I took a look.
+Entirely by coincidence, blogger Jeffery Harrell, right about that time, pointed me to a script written by Roger Johanssen <http://www.456bereastreet.com/archive/200609/automatic_pullquotes_with_javascript_and_css/>.  We weren't even discussing my idea at the time -- it was simply a "hey, this is neat" post on Jeff's blog.  So I took a look.
 
 As it turns out, Roger basically had created _exactly_ the script I had had in mind -- right down to a limitation mine would have had because I (and he) didn't know how to code around it.  Before I even saw his script, a commenter on his blog had fixed that limitation, and a second commenter had gone and tucked it into a "wrapper" that made it into a WordPress plugin.  No frills, no fuss -- it simply applied the script to WordPress pages.  (You can find that version here: http://www.viper007bond.com/wordpress-plugins/javascript-pullquotes/ ).
 
 Finally, I (Stephen Rider) picked it up and started adding features, including the options panel and all user changeable options, alternate text quotes, styles, localization compatibility, and pretty much everything beyond the simple script link.  I've put a lot of hours into this plugin, and have learned a lot about JavaScript, PHP, and WordPress along the way.
-
 
 Enjoy!
 
